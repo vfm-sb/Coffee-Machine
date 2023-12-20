@@ -1,0 +1,5 @@
+# Compiled Python
+__pycache__/
+
+# MacOS Generated Files & Folders
+.DS_Store
