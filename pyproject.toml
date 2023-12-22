@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "coffee-machine"
 version = "0.1.0"
 dependencies = []
-requires-python = ">=3.11.6"
+requires-python = ">=3.11.6,<3.12"
 authors = [{ name = "vfm-sb", email = "vfm-sb@proton.me" }]
 description = "A Simple Coffee Machine Application"
 readme = "README.md"
@@ -18,6 +18,5 @@ classifiers = [
     "Intended Audience :: End Users/Desktop",
     "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Natural Language :: English",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
 ]

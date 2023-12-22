@@ -1,6 +1,9 @@
 # Compiled Python
 __pycache__/
 
+# Virtual Environment
+venv/
+
 # Project-Specific Files & Folders
 design/
 prototypes/
