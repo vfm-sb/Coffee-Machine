@@ -25,6 +25,9 @@ class Catalog:
         self.drinks_data = self.load_drinks_data()
         self.groups_data = self.load_groups_data()
 
+        if self.empty_catalog():
+            self.build_catalog()
+
     @property
     def filename(self) -> str:
         return self._filename
@@ -67,3 +70,11 @@ class Catalog:
             groups_data[group_code] = group_data
         return groups_data
 
+    # State Checkers
+    def empty_catalog(self) -> bool:
+        return len(self.drinks_data) == 0
+
+    # Re-Initializer
+    def build_catalog(self) -> None:
+        CatalogBuilderCLI(self.filename)
+        self.__init__(self.filename)
