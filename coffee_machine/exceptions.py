@@ -11,6 +11,13 @@ class InvalidFilenameError(Exception):
         super().__init__(self.message)
 
 
+# Input Operations Exceptions
+class MissingInputError(Exception):
+    def __init__(self) -> None:
+        self.message = "Missing Input"
+        super().__init__(self.message)
+
+
 class InvalidInputTypeError(Exception):
     def __init__(self, input_type: str | None) -> None:
         self.message = "Invalid Input Type"
