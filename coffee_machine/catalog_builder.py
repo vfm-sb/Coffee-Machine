@@ -24,7 +24,7 @@ class CatalogBuilderCLI(Catalog):
     def ask_filename() -> str:
         print("Enter Catalog Name or Filename:")
         try:
-            input_string = InputHandler(input_type="string").data
+            input_string = InputHandler(input_type="upper-string").output
         except ValueError as error_message:
             print(error_message)
             print()
