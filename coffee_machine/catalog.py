@@ -7,6 +7,7 @@ from catalog_builder import CatalogBuilderCLI
 
 # Utilities Imports
 from utils import get_file_path
+from utils import convert_to_name
 from utils import valid_filename
 
 # Exceptions
@@ -19,8 +20,8 @@ class Catalog:
 
     def __init__(self, filename: str | None = None) -> None:
         self.filename = filename
-        self.filepath = self.get_catalog_filepath()
-        self.name = self.get_catalog_name()
+        self.filepath = self.set_catalog_filepath()
+        self.name = self.set_catalog_name()
         self.catalog_data = self.load_catalog_data()
         self.drinks_data = self.load_drinks_data()
         self.groups_data = self.load_groups_data()
@@ -40,10 +41,10 @@ class Catalog:
             raise InvalidFilenameError(filename=filename, extension=Catalog.extension)
         self._filename = filename.lower()
 
-    def get_catalog_name(self) -> str:
-        return self.filename.replace("." + Catalog.extension, "").replace("_", " ").lower()
+    def set_catalog_name(self) -> str:
+        return convert_to_name(filename=self.filename, extension=Catalog.extension)
 
-    def get_catalog_filepath(self) -> str:
+    def set_catalog_filepath(self) -> str:
         return get_file_path(filename=self.filename, path=Catalog.path)
 
     # Data Loaders
