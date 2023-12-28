@@ -38,8 +38,8 @@ class Catalog:
         if filename is None:
             filename = CatalogBuilderCLI.ask_filename()
         if not valid_filename(string=filename, extension=Catalog.extension):
-            raise InvalidFilenameError(filename=filename, extension=Catalog.extension)
-        self._filename = filename.lower()
+            raise InvalidFilenameError(filename=filename)
+        self._filename = filename
 
     def set_catalog_name(self) -> str:
         return convert_to_name(filename=self.filename, extension=Catalog.extension)
