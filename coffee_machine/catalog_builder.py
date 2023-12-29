@@ -4,6 +4,7 @@ from input_handler import InputHandler
 
 # Utilities Imports
 from utils import convert_to_filename
+from utils import custom_title
 from utils import valid_filename
 
 # Exceptions
@@ -51,4 +52,20 @@ class CatalogBuilderCLI(Catalog):
         if self.menu_code_taken(menu_code) and menu_code != currenct_code:
             return self.ask_menu_code(currenct_code)
         return menu_code
+
+    def ask_drink_name(self, current_name: str | None = None) -> str:
+        print(f'{"Enter" if not current_name else "Change"} Drink Name')
+        if current_name:
+            print(f"Current Drink Name is {current_name}")
+        try:
+            drink_name = InputHandler(input_type="lower-string").output
+        except MissingInputError as error_message:
+            print(error_message)
+            print()
+            return self.ask_drink_name(current_name)
+        if self.drink_exist(drink_name):
+            print(f"{custom_title(drink_name)} Already Exists! Try A Different Drink Name.")
+            print()
+            return self.ask_drink_name(current_name)
+        return drink_name
 
