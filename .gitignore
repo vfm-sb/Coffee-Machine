@@ -1,13 +1,16 @@
 # Compiled Python
 __pycache__/
+.pytest_cache/
 
 # Virtual Environment
 venv/
 
 # Project-Specific Files & Folders
 design/
+notes/
 prototypes/
 research/
+scratchcode/
 scratchpad/
 
 # MacOS Generated Files & Folders
