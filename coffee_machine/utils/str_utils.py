@@ -13,3 +13,14 @@ def convert_to_filename(name: str, extension: str) -> str:
 
 def convert_to_name(filename: str, extension: str) -> str:
     return filename.replace("." + extension, "").replace("_", " ").lower()
+
+
+def custom_title(input_string: str, exclusions: list) -> str:
+    parts = input_string.split()
+    customized_parts = list()
+    for part in parts:
+        if part in exclusions:
+            customized_parts.append(part)
+        else:
+            customized_parts.append(part.capitalize())
+    return " ".join(customized_parts)
