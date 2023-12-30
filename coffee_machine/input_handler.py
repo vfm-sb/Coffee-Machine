@@ -1,10 +1,10 @@
 # Utilities Imports
 from utils import assert_input
 from utils import get_numeric_value, extract_numeric_value
+from utils import split_by_comma, split_by_colon, split_by_semicolon
 
 # Exceptions
 from exceptions import InvalidInputTypeError
-from exceptions import InvalidNumericInputError
 
 
 class InputHandler:
@@ -73,6 +73,37 @@ class InputHandler:
         if menu_code < 1:
             raise ValueError(f"Invalid Menu Code >> {menu_code}")
         return menu_code
+
+    def ingredients_input(self, exit_keywords: dict | None = None) -> dict:
+        if not exit_keywords:
+            exit_keywords = ["done", "exit", "eol"]
+        ingredients_data = dict()
+        while True:
+            user_input = self.lower_string_input()
+            if user_input in exit_keywords:
+                break
+            if "," in user_input:
+                ingredients = split_by_comma(user_input)
+                for ingredient_string in ingredients:
+                    raw_ingredient_amount, ingredient_name = ingredient_string.split()
+                    ingredient_amount = extract_numeric_value(raw_ingredient_amount)
+                    ingredients_data[ingredient_name] = ingredient_amount
+            elif ";" in user_input:
+                ingredients = split_by_semicolon(user_input)
+                for ingredient_string in ingredients:
+                    ingredient_name, raw_ingredient_amount = split_by_colon(ingredient_string)
+                    ingredient_amount = extract_numeric_value(raw_ingredient_amount)
+                    ingredients_data[ingredient_name] = ingredient_amount
+            elif ":" in user_input:
+                ingredient_name, raw_ingredient_amount = split_by_colon(user_input)
+                ingredient_amount = extract_numeric_value(raw_ingredient_amount)
+                ingredients_data[ingredient_name] = ingredient_amount
+            else:
+                ingredient_name = user_input
+                raw_ingredient_amount = self.lower_string_input()
+                ingredient_amount = extract_numeric_value(raw_ingredient_amount)
+                ingredients_data[ingredient_name] = ingredient_amount
+        return ingredients_data
 
 
 # Testing
