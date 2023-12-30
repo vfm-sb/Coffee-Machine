@@ -69,3 +69,15 @@ class CatalogBuilderCLI(Catalog):
             return self.ask_drink_name(current_name)
         return drink_name
 
+    def ask_group_name(self, current_name: str | None = None) -> str:
+        print(f'{"Enter" if not current_name else "Change"} Drink Name')
+        if current_name:
+            print(f"Current Drink Name is {current_name}")
+        try:
+            group_name = InputHandler(input_type="lower-string").output
+        except MissingInputError as error_message:
+            print(error_message)
+            print()
+            return self.ask_group_name(current_name)
+        return group_name
+
