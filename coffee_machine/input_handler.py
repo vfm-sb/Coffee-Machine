@@ -1,5 +1,6 @@
 # Utilities Imports
 from utils import assert_input
+from utils import get_numeric_value, extract_numeric_value
 
 # Exceptions
 from exceptions import InvalidInputTypeError
@@ -64,14 +65,8 @@ class InputHandler:
         return self._string_input("assert", "strip", "upper")
 
     def _numeric_input(self) -> int | float:
-        numeric_input = self._string_input("assert", "strip")
-        try:
-            return int(numeric_input)
-        except ValueError:
-            try:
-                return float(numeric_input)
-            except ValueError:
-                raise InvalidNumericInputError(numeric_input)
+        user_input = self._string_input("assert", "strip")
+        return get_numeric_value(input_string=user_input)
 
     def menu_code_input(self) -> int | float:
         menu_code = self._numeric_input()
