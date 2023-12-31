@@ -1,5 +1,6 @@
 # Local Modules
 from catalog import Catalog
+from drink import Drink
 from input_handler import InputHandler
 
 # Utilities Imports
@@ -80,4 +81,15 @@ class CatalogBuilderCLI(Catalog):
             print()
             return self.ask_group_name(current_name)
         return group_name
+
+    def ask_ingredients(self, current_ingredients: dict | None = None) -> dict:
+        print(f"{'Enter' if not current_ingredients else 'Change'} Ingredients:")
+        if current_ingredients:
+            print(f"Current Ingredients are {Drink.display_ingredients(current_ingredients)}")
+        exit_keywords = ["done"]
+        ingredients = InputHandler(input_type="ingredients", exit_keywords=exit_keywords).output
+        if len(ingredients) == 0:
+            print("Empty Collection! Data Input Required.")
+            return self.ask_ingredients(current_ingredients)
+        return ingredients
 
