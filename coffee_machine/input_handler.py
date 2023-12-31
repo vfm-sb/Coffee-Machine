@@ -26,6 +26,7 @@ class InputHandler:
             "lower-string": self.lower_string_input,
             "upper-string": self.upper_string_input,
             "menu-code": self.menu_code_input,
+            "ingredients": self.ingredients_input,
         }
         if self.input_type not in input_types:
             raise InvalidInputTypeError
