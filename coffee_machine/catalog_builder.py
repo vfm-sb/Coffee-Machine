@@ -93,3 +93,11 @@ class CatalogBuilderCLI(Catalog):
             return self.ask_ingredients(current_ingredients)
         return ingredients
 
+    def ask_extras(self, current_extras: dict | None) -> dict:
+        print(f"{'Enter' if not current_extras else 'Change'} Extras:")
+        if current_extras:
+            print(f"Current Extras are {Drink.display_ingredients(current_extras)}")
+        exit_keywords = ["done", "none"]
+        extras = InputHandler(input_type="ingredients", exit_keywords=exit_keywords).output
+        return extras
+
