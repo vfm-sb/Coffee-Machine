@@ -65,7 +65,7 @@ class CatalogBuilderCLI(Catalog):
             print()
             return self.ask_drink_name(current_name)
         if self.drink_exist(drink_name):
-            print(f"{custom_title(drink_name)} Already Exists! Try A Different Drink Name.")
+            print(f'{custom_title(drink_name, exclusions=["in"])} Already Exists! Try A Different Drink Name.')
             print()
             return self.ask_drink_name(current_name)
         return drink_name
