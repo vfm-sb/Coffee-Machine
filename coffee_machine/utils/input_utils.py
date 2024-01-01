@@ -8,8 +8,8 @@ def get_numeric_value(input_string: str) -> int | float:
     except ValueError:
         try:
             return float(input_string)
-        except ValueError:
-            raise InvalidNumericInputError(input_string)
+        except ValueError as exc:
+            raise InvalidNumericInputError(input_string) from exc
 
 
 def extract_numeric_value(input_string: str) -> int | float:
