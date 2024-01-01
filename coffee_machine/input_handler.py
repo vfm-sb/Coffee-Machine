@@ -9,11 +9,11 @@ from .exceptions import InvalidInputTypeError
 
 class InputHandler:
 
-    def __init__(self, input_type: str, prompt: str = "> ", *args, **kwargs) -> None:
+    def __init__(self, input_type: str, prompt: str = "> ", **kwargs) -> None:
         self.input_type = input_type
         self.prompt = prompt
         self.input_method = self.get_input_method()
-        self._data = self.input_method(*args, **kwargs)
+        self._data = self.input_method(**kwargs)
 
     @property
     def output(self):
