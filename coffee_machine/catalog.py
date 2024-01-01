@@ -37,7 +37,7 @@ class Catalog:
     def filename(self, filename: str | None = None) -> None:
         if filename is None:
             filename = CatalogBuilderCLI.ask_filename()
-        if not valid_filename(string=filename, extension=Catalog.extension):
+        if not valid_filename(filename=filename, extension=Catalog.extension):
             raise InvalidFilenameError(filename=filename)
         self._filename = filename
 
@@ -78,7 +78,8 @@ class Catalog:
     # Re-Initializer
     def build_catalog(self) -> None:
         CatalogBuilderCLI(self.filename)
-        self.__init__(self.filename)
+        Catalog(self.filename)
+
 
 # Testing
 if __name__ == "__main__":
