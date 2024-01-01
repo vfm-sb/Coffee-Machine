@@ -1,5 +1,5 @@
 # Exceptions
-from exceptions import InvalidNumericInputError
+from coffee_machine.exceptions import InvalidNumericInputError
 
 
 def get_numeric_value(input_string: str) -> int | float:

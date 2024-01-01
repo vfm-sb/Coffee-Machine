@@ -1,16 +1,16 @@
 # Local Modules
-from catalog import Catalog
-from drink import Drink
-from input_handler import InputHandler
+from .catalog import Catalog
+from .drink import Drink
+from .input_handler import InputHandler
 
 # Utilities Imports
-from utils import convert_to_filename
-from utils import custom_title
-from utils import valid_filename
+from .utils import convert_to_filename
+from .utils import custom_title
+from .utils import valid_filename
 
 # Exceptions
-from exceptions import MissingInputError
-from exceptions import InvalidNumericInputError
+from .exceptions import MissingInputError
+from .exceptions import InvalidNumericInputError
 
 
 class CatalogBuilderCLI(Catalog):
@@ -101,3 +101,7 @@ class CatalogBuilderCLI(Catalog):
         extras = InputHandler(input_type="ingredients", exit_keywords=exit_keywords).output
         return extras
 
+
+# Testing
+if __name__ == "__main__":
+    pass

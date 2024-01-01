@@ -10,6 +10,7 @@ from .file_utils import get_file_path
 
 # String Utils
 from .str_utils import convert_to_filename, convert_to_name
+from .str_utils import custom_title
 
 # Assertions
 from .assert_utils import assert_input

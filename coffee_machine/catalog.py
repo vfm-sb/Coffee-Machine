@@ -2,16 +2,16 @@
 import json
 
 # Local Modules
-from drink import Drink
-from catalog_builder import CatalogBuilderCLI
+from .drink import Drink
+from .catalog_builder import CatalogBuilderCLI
 
 # Utilities Imports
-from utils import get_file_path
-from utils import convert_to_name
-from utils import valid_filename
+from .utils import get_file_path
+from .utils import convert_to_name
+from .utils import valid_filename
 
 # Exceptions
-from exceptions import InvalidFilenameError
+from .exceptions import InvalidFilenameError
 
 
 class Catalog:
@@ -79,3 +79,7 @@ class Catalog:
     def build_catalog(self) -> None:
         CatalogBuilderCLI(self.filename)
         self.__init__(self.filename)
+
+# Testing
+if __name__ == "__main__":
+    pass

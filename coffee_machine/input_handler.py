@@ -1,10 +1,10 @@
 # Utilities Imports
-from utils import assert_input
-from utils import get_numeric_value, extract_numeric_value
-from utils import split_by_comma, split_by_colon, split_by_semicolon
+from .utils import assert_input
+from .utils import get_numeric_value, extract_numeric_value
+from .utils import split_by_comma, split_by_colon, split_by_semicolon
 
 # Exceptions
-from exceptions import InvalidInputTypeError
+from .exceptions import InvalidInputTypeError
 
 
 class InputHandler:
