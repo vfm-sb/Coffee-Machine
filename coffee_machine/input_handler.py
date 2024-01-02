@@ -1,3 +1,6 @@
+# Local Modules
+from .electrum import Currency
+
 # Utilities Imports
 from .utils import assert_input
 from .utils import get_numeric_value, extract_numeric_value
@@ -5,6 +8,7 @@ from .utils import split_by_comma, split_by_colon, split_by_semicolon
 
 # Exceptions
 from .exceptions import InvalidInputTypeError
+from .exceptions import InvalidCurrencyCodeError
 
 
 class InputHandler:
@@ -27,6 +31,7 @@ class InputHandler:
             "upper-string": self.upper_string_input,
             "menu-code": self.menu_code_input,
             "ingredients": self.ingredients_input,
+            "currency-code": self.currency_code_input,
         }
         if self.input_type not in input_types:
             raise InvalidInputTypeError
@@ -105,6 +110,12 @@ class InputHandler:
                 ingredient_amount = extract_numeric_value(raw_ingredient_amount)
                 ingredients_data[ingredient_name] = ingredient_amount
         return ingredients_data
+
+    def currency_code_input(self) -> str:
+        user_input = self.lower_string_input()
+        if not Currency.valid_currency_code(user_input):
+            raise InvalidCurrencyCodeError
+        return user_input
 
 
 # Testing
