@@ -26,3 +26,12 @@ class CurrencyLoader:
         with open(filepath, "r", encoding="UTF-8") as active_currencies_file:
             return json.load(active_currencies_file)
 
+    # State Checkers
+    def currency_exists(self, code: str | int) -> bool:
+        currency_id = self.get_currency_id(code)
+        return currency_id in self.currencies
+
+
+# Testing
+if __name__ == "__main__":
+    pass
