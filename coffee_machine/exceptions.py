@@ -2,6 +2,12 @@
 Custom Exceptions for Coffee-Machine
 """
 
+# Generic Exceptions
+class ObjectMismatchError(TypeError):
+    def __init__(self, message: str = "Objects Don't Match") -> None:
+        self.message = message
+        super().__init__(self.message)
+
 
 # File Operations Exceptions
 class InvalidFilenameError(Exception):
@@ -32,4 +38,21 @@ class InvalidNumericInputError(ValueError):
         self.message = message
         if input_string:
             self.message += f' >> "{input_string}"'
+        super().__init__(self.message)
+
+
+# Electrum Exceptions
+class InvalidCurrencyCodeError(Exception):
+    def __init__(self, message: str = "Invalid Currency Code", code: str | int | None = None) -> None:
+        self.message = message
+        if code:
+            self.message += f" >> {code}"
+        super().__init__(self.message)
+
+
+class CurrencyNotFoundError(Exception):
+    def __init__(self, message: str = "", code: str | int | None = None) -> None:
+        self.message = message
+        if code:
+            self.message += f" >> {code}"
         super().__init__(self.message)
