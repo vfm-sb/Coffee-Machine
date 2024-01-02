@@ -4,12 +4,16 @@ import json
 # Local Modules
 from coffee_machine.electrum import Currency
 
+# Utilities
+from coffee_machine.utils import get_file_path
+
 # Exceptions
 from coffee_machine.exceptions import InvalidCurrencyCodeError, CurrencyNotFoundError
 
 
 class CurrencyLoader:
     path = "data/currencies"
+    extension = "json"
     active_currencies = "_CURRENCIES.json"
 
     def __init__(self, code: str | int) -> None:
@@ -25,6 +29,12 @@ class CurrencyLoader:
         filepath = get_file_path(CurrencyLoader.active_currencies, CurrencyLoader.path)
         with open(filepath, "r", encoding="UTF-8") as active_currencies_file:
             return json.load(active_currencies_file)
+
+    def load_currency_data(self) -> dict:
+        filename = f"{self.currency_id}.{CurrencyLoader.extension}"
+        filepath = get_file_path(filename, path=CurrencyLoader.path)
+        with open(filepath, "r", encoding="UTF-8") as currency_file:
+            return json.load(currency_file)
 
     def get_currency_id(self, code: str | int) -> str | None:
         code = str(code).upper()
