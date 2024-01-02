@@ -2,6 +2,7 @@
 from .catalog import Catalog
 from .drink import Drink
 from .input_handler import InputHandler
+from .electrum import Money
 
 # Utilities Imports
 from .utils import convert_to_filename
@@ -39,6 +40,16 @@ class CatalogBuilderCLI(Catalog):
         if valid_filename(input_string, extension="json"):
             return input_string
         return convert_to_filename(name=input_string, extension=CatalogBuilderCLI.extension)
+
+    def ask_currency_id(self) -> str:
+        print("Enter Currency ID (ISO Alphabetic or ISO Numeric Code):")
+        try:
+            currency_id = InputHandler(input_type="currency-code").output
+        except ValueError as error_message:
+            print(error_message)
+            print()
+            return self.ask_currency_id()
+        return currency_id
 
     def ask_menu_code(self, currenct_code: int | float | None = None) -> int | float:
         print(f'{"Enter" if not currenct_code else "Change"} Menu Code')
