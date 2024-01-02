@@ -26,6 +26,14 @@ class CurrencyLoader:
         with open(filepath, "r", encoding="UTF-8") as active_currencies_file:
             return json.load(active_currencies_file)
 
+    def get_currency_id(self, code: str | int) -> str | None:
+        code = str(code).upper()
+        for currency_id, data in self.currencies.items():
+            iso_identifiers = (data["iso-alphabetic"], data["iso-numeric"])
+            if code in iso_identifiers:
+                return currency_id
+        return None
+
     # State Checkers
     def currency_exists(self, code: str | int) -> bool:
         currency_id = self.get_currency_id(code)
