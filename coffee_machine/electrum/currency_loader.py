@@ -25,6 +25,10 @@ class CurrencyLoader:
         self.currency_id = self.get_currency_id(code)
         self.currency_data = self.load_currency_data()
 
+    @property
+    def data(self):
+        return self.currency_data
+
     def load_currencies(self) -> dict:
         filepath = get_file_path(CurrencyLoader.active_currencies, CurrencyLoader.path)
         with open(filepath, "r", encoding="UTF-8") as active_currencies_file:
