@@ -1,6 +1,9 @@
 # Local Modules
 from coffee_machine.electrum import CurrencyLoader
 
+# Exceptions
+from coffee_machine.exceptions import ObjectMismatchError
+
 
 class Currency:
 
@@ -27,3 +30,14 @@ class Currency:
         self.banknotes = currency_data["banknotes"]
         self.coins = currency_data["coins"]
         self.users = currency_data["users"]
+
+    def __hash__(self) -> int:
+        return hash((self.alphabetic_code, self.numeric_code))
+
+    def __eq__(self, other: 'Currency') -> bool:
+        if not isinstance(other, Currency):
+            raise ObjectMismatchError(f"Currency Object Mismatch >> {type(other)}")
+        return self.alphabetic_code == other.alphabetic_code
+
+    def __ne__(self, other: 'Currency') -> bool:
+        return not self == other
