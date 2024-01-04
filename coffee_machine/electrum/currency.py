@@ -1,15 +1,17 @@
 # Local Modules
 from coffee_machine.electrum import CurrencyLoader
+from coffee_machine.electrum import Currencies
 
 # Exceptions
 from coffee_machine.exceptions import ObjectMismatchError
 from coffee_machine.exceptions import InvalidCurrencyCodeError
+from coffee_machine.exceptions import CurrencyNotFoundError
 
 
 class Currency:
 
     def __init__(self, code: str | int) -> None:
-        currency_data = CurrencyLoader(code).data
+        currency_data = CurrencyLoader.load(code)
         self.alphabetic_code = currency_data["iso-alphabetic"]
         self.numeric_code = currency_data["iso-numeric"]
         self.name = currency_data["name"]
@@ -60,6 +62,17 @@ class Currency:
     def assert_currency_code(code: str | int) -> None:
         if not Currency.valid_currency_code(code):
             raise InvalidCurrencyCodeError
+
+    @staticmethod
+    def assert_currency_existance(code: str | int) -> None:
+        currencies = Currencies()
+        if not currencies.currency_exists(code):
+            raise CurrencyNotFoundError
+
+    @staticmethod
+    def assert_currency(code: str | int) -> None:
+        Currency.assert_currency_code(code)
+        Currency.assert_currency_existance(code)
 
 
 # Testing
