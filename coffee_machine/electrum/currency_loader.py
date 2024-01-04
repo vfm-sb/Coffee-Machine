@@ -18,9 +18,7 @@ class CurrencyLoader:
 
     def __init__(self, code: str | int) -> None:
         self.currencies = self.load_currencies()
-        Currency.assert_currency_code(code)
-        if not self.currency_exists(code):
-            raise CurrencyNotFoundError
+        self.assert_currency(code)
         self.currency_id = self.get_currency_id(code)
         self.currency_data = self.load_currency_data()
 
@@ -51,6 +49,11 @@ class CurrencyLoader:
     def currency_exists(self, code: str | int) -> bool:
         currency_id = self.get_currency_id(code)
         return currency_id in self.currencies
+
+    def assert_currency(self, code: str | int) -> bool:
+        Currency.assert_currency_code(code)
+        if not self.currency_exists(code):
+            raise CurrencyNotFoundError
 
 
 # Testing
