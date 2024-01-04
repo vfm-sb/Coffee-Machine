@@ -8,7 +8,7 @@ from coffee_machine.electrum import Currency
 from coffee_machine.utils import get_file_path
 
 # Exceptions
-from coffee_machine.exceptions import InvalidCurrencyCodeError, CurrencyNotFoundError
+from coffee_machine.exceptions import CurrencyNotFoundError
 
 
 class CurrencyLoader:
@@ -18,8 +18,7 @@ class CurrencyLoader:
 
     def __init__(self, code: str | int) -> None:
         self.currencies = self.load_currencies()
-        if not Currency.valid_currency_code(code):
-            raise InvalidCurrencyCodeError
+        Currency.assert_currency_code(code)
         if not self.currency_exists(code):
             raise CurrencyNotFoundError
         self.currency_id = self.get_currency_id(code)

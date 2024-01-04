@@ -3,6 +3,7 @@ from coffee_machine.electrum import CurrencyLoader
 
 # Exceptions
 from coffee_machine.exceptions import ObjectMismatchError
+from coffee_machine.exceptions import InvalidCurrencyCodeError
 
 
 class Currency:
@@ -54,3 +55,13 @@ class Currency:
     @staticmethod
     def valid_numeric_code(code: int | str) -> bool:
         return str(code).isdigit() and len(str(code)) == 3
+
+    @staticmethod
+    def assert_currency_code(code: str | int) -> None:
+        if not Currency.valid_currency_code(code):
+            raise InvalidCurrencyCodeError
+
+
+# Testing
+if __name__ == "__main__":
+    pass
