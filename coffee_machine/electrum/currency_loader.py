@@ -2,7 +2,7 @@
 import json
 
 # Local Modules
-from coffee_machine.electrum import Currency, Currencies
+from coffee_machine.electrum import Currencies
 
 # Utilities
 from coffee_machine.utils import get_file_path
@@ -12,7 +12,6 @@ class CurrencyLoader:
 
     def __init__(self, code: str | int) -> None:
         currencies = Currencies()
-        Currency.assert_currency(code)
         self.currency_id = currencies.get_currency_id(code)
         self.currency_data = self.retrieve_currency_data()
 

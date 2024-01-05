@@ -11,6 +11,7 @@ from coffee_machine.exceptions import CurrencyNotFoundError
 class Currency:
 
     def __init__(self, code: str | int) -> None:
+        Currency.assert_currency(code)
         currency_data = CurrencyLoader.load(code)
         self.alphabetic_code = currency_data["iso-alphabetic"]
         self.numeric_code = currency_data["iso-numeric"]
