@@ -1,5 +1,6 @@
 # Built-in Modules
 import os
+import json
 
 
 def get_root_path() -> str:
@@ -18,9 +19,22 @@ def get_file_path(filename: str, path: str) -> str:
     return get_folder_path(path) + filename
 
 
+def get_file_content(filename: str, path: str) -> str:
+    filepath = get_file_path(filename, path)
+    with open(filepath, "r", encoding="UTF-8") as file:
+        return file.read()
+
+
+def get_json_file(filename: str, path: str) -> dict:
+    if not filename.endswith(".json"):
+        raise ValueError("Invalid JSON Filename")
+    file_content = get_file_content(filename, path)
+    return json.loads(file_content)
+
+
 def file_exists(filename: str, path: str) -> bool:
-    file_path = get_file_path(filename, path)
-    return os.path.exists(file_path)
+    filepath = get_file_path(filename, path)
+    return os.path.exists(filepath)
 
 
 def list_files(path: str, extension: str | None = None, excluded: list | None = None) -> list:
