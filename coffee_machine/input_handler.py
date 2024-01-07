@@ -28,6 +28,7 @@ class InputHandler:
             "loose-string": self.unrestricted_string_input,
             "lower-string": self.lower_string_input,
             "upper-string": self.upper_string_input,
+            "numeric": self.numeric_input,
             "menu-code": self.menu_code_input,
             "ingredients": self.ingredients_input,
             "currency-code": self.currency_code_input,
@@ -71,12 +72,12 @@ class InputHandler:
     def upper_string_input(self) -> str:
         return self._string_input("assert", "strip", "upper")
 
-    def _numeric_input(self) -> int | float:
+    def numeric_input(self) -> int | float:
         user_input = self._string_input("assert", "strip")
         return get_numeric_value(input_string=user_input)
 
     def menu_code_input(self) -> int | float:
-        menu_code = self._numeric_input()
+        menu_code = self.numeric_input()
         if menu_code < 1:
             raise ValueError(f"Invalid Menu Code >> {menu_code}")
         return menu_code
@@ -84,7 +85,7 @@ class InputHandler:
     def ingredients_input(self, exit_keywords: dict | None = None) -> dict:
         if not exit_keywords:
             exit_keywords = ["done", "exit", "eol"]
-        ingredients_data = dict()
+        ingredients_data = {}
         while True:
             user_input = self.lower_string_input()
             if user_input in exit_keywords:
