@@ -2,7 +2,7 @@
 Custom Exceptions for Coffee-Machine
 """
 
-# Generic Exceptions
+# Generic Object Exceptions
 class ObjectMismatchError(TypeError):
     def __init__(self, message: str = "Objects Don't Match") -> None:
         self.message = message
@@ -10,7 +10,7 @@ class ObjectMismatchError(TypeError):
 
 
 # File Operations Exceptions
-class InvalidFilenameError(Exception):
+class InvalidFilenameError(ValueError):
     def __init__(self, filename: str | None = None) -> None:
         self.message = "Invalid Filename"
         if filename:
@@ -19,13 +19,13 @@ class InvalidFilenameError(Exception):
 
 
 # Input Operations Exceptions
-class MissingInputError(Exception):
+class MissingInputError(ValueError):
     def __init__(self) -> None:
         self.message = "Missing Input"
         super().__init__(self.message)
 
 
-class InvalidInputTypeError(Exception):
+class InvalidInputTypeError(ValueError):
     def __init__(self, input_type: str | None) -> None:
         self.message = "Invalid Input Type"
         if input_type:
@@ -42,7 +42,7 @@ class InvalidNumericInputError(ValueError):
 
 
 # Electrum Exceptions
-class InvalidCurrencyCodeError(Exception):
+class InvalidCurrencyCodeError(ValueError):
     def __init__(self, message: str = "Invalid Currency Code", code: str | int | None = None) -> None:
         self.message = message
         if code:
@@ -50,7 +50,7 @@ class InvalidCurrencyCodeError(Exception):
         super().__init__(self.message)
 
 
-class CurrencyNotFoundError(Exception):
+class CurrencyNotFoundError(FileNotFoundError):
     def __init__(self, message: str = "", code: str | int | None = None) -> None:
         self.message = message
         if code:
