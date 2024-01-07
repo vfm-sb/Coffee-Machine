@@ -1,6 +1,3 @@
-# Local Modules
-from coffee_machine.electrum import Currencies
-
 # Utilities
 from coffee_machine.utils import get_json_file
 
@@ -12,17 +9,17 @@ from coffee_machine.exceptions import CurrencyNotFoundError
 class CurrencyHelper:
     path = "data/currencies"
     extension = "json"
-    currencies_filename = "_CURRENCIES.json"
+    all_currencies = "_CURRENCIES.json"
 
     def __init__(self) -> None:
         self.currencies = self.load_currencies()
 
     def load_currencies(self) -> dict:
-        return get_json_file(CurrencyHelper.currencies_filename, CurrencyHelper.path)
+        return get_json_file(CurrencyHelper.all_currencies, CurrencyHelper.path)
 
     def retrieve_currency_data(self, code: str) -> dict:
         currency_id = self.get_currency_id(code)
-        currency_filename = f"{currency_id}.{Currencies.extension}"
+        currency_filename = f"{currency_id}.{CurrencyHelper.extension}"
         return get_json_file(currency_filename, path=CurrencyHelper.path)
 
     def load_currency_data(self, currency_id: str) -> dict:
@@ -57,7 +54,17 @@ class CurrencyHelper:
     @staticmethod
     def assert_currency_code(code: str | int) -> None:
         if not CurrencyHelper.valid_currency_code(code):
-            raise InvalidCurrencyCodeError
+            raise InvalidCurrencyCodeError(code=code)
+
+    @staticmethod
+    def assert_alphabetic_code(code: str) -> None:
+        if not CurrencyHelper.valid_alphabetic_code(code):
+            raise InvalidCurrencyCodeError("Invalid Alphabetic Currency Code", code=code)
+
+    @staticmethod
+    def assert_numeric_code(code: int | str) -> None:
+        if not CurrencyHelper.valid_numeric_code(code):
+            raise InvalidCurrencyCodeError("Invalid Numeric Currency Code", code=code)
 
     @staticmethod
     def assert_currency_existance(code: str | int) -> None:
