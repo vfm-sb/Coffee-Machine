@@ -3,7 +3,7 @@ from coffee_machine.electrum import CurrencyHelper
 
 # Utilities Imports
 from coffee_machine.utils import assert_input
-from coffee_machine.utils import get_numeric_value, extract_numeric_value
+from coffee_machine.utils import get_numeric_value, get_integer_value, extract_numeric_value
 from coffee_machine.utils import split_by_comma, split_by_colon, split_by_semicolon
 
 # Exceptions
@@ -29,6 +29,7 @@ class InputHandler:
             "lower-string": self.lower_string_input,
             "upper-string": self.upper_string_input,
             "numeric": self.numeric_input,
+            "integer": self.integer_input,
             "menu-code": self.menu_code_input,
             "ingredients": self.ingredients_input,
             "currency-code": self.currency_code_input,
@@ -75,6 +76,10 @@ class InputHandler:
     def numeric_input(self) -> int | float:
         user_input = self._string_input("assert", "strip")
         return get_numeric_value(input_string=user_input)
+
+    def integer_input(self) -> int:
+        user_input = self._string_input("assert", "strip")
+        return get_integer_value(user_input)
 
     def menu_code_input(self) -> int | float:
         menu_code = self.numeric_input()

@@ -1,5 +1,6 @@
 # Input Utils
 from .input_utils import get_numeric_value
+from .input_utils import get_integer_value
 from .input_utils import extract_numeric_value
 from .input_utils import split_by_comma
 from .input_utils import split_by_colon

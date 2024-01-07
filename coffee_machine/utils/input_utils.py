@@ -12,6 +12,13 @@ def get_numeric_value(input_string: str) -> int | float:
             raise InvalidNumericInputError(input_string) from exc
 
 
+def get_integer_value(input_string: str) -> int:
+    try:
+        return int(input_string)
+    except ValueError as exc:
+        raise InvalidNumericInputError("Invalid Integer Value", input_string) from exc
+
+
 def extract_numeric_value(input_string: str) -> int | float:
     value_string = str()
     for char in input_string:
