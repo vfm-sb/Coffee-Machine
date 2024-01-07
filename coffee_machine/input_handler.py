@@ -1,14 +1,13 @@
 # Local Modules
-from .electrum import Currency
+from coffee_machine.electrum import CurrencyHelper
 
 # Utilities Imports
-from .utils import assert_input
-from .utils import get_numeric_value, extract_numeric_value
-from .utils import split_by_comma, split_by_colon, split_by_semicolon
+from coffee_machine.utils import assert_input
+from coffee_machine.utils import get_numeric_value, extract_numeric_value
+from coffee_machine.utils import split_by_comma, split_by_colon, split_by_semicolon
 
 # Exceptions
-from .exceptions import InvalidInputTypeError
-from .exceptions import InvalidCurrencyCodeError
+from coffee_machine.exceptions import InvalidInputTypeError
 
 
 class InputHandler:
@@ -32,6 +31,8 @@ class InputHandler:
             "menu-code": self.menu_code_input,
             "ingredients": self.ingredients_input,
             "currency-code": self.currency_code_input,
+            "alphabetic-currency-code": self.alphabetic_currency_code_input,
+            "numeric-currency-code": self.numeric_currency_code_input,
         }
         if self.input_type not in input_types:
             raise InvalidInputTypeError
@@ -112,9 +113,18 @@ class InputHandler:
         return ingredients_data
 
     def currency_code_input(self) -> str:
-        user_input = self.lower_string_input()
-        if not Currency.valid_currency_code(user_input):
-            raise InvalidCurrencyCodeError
+        user_input = self.upper_string_input()
+        CurrencyHelper.assert_currency_code(user_input) # InvalidCurrencyCodeError
+        return user_input
+
+    def alphabetic_currency_code_input(self) -> str:
+        user_input = self.upper_string_input()
+        CurrencyHelper.assert_alphabetic_code(user_input) # InvalidCurrencyCodeError
+        return user_input
+
+    def numeric_currency_code_input(self) -> str:
+        user_input = self.strict_string_input()
+        CurrencyHelper.assert_numeric_code(user_input) # InvalidCurrencyCodeError
         return user_input
 
 
