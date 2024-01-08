@@ -30,9 +30,11 @@ class InputHandler:
             "lower-string": self.lower_string_input,
             "upper-string": self.upper_string_input,
             "multiple-strings": self.multiple_string_values_input,
+            "keyword": self.keyword_input,
             "numeric": self.numeric_input,
             "integer": self.integer_input,
             "loose-numeric": self.loose_numeric_input,
+            "loose-integer": self.loose_integer_input,
             "multiple-numeric": self.multiple_numeric_values_input,
             "menu-code": self.menu_code_input,
             "ingredients": self.ingredients_input,
@@ -97,6 +99,14 @@ class InputHandler:
             strings = list(set(strings))
         return strings
 
+    def keyword_input(self, keywords: list) -> str:
+        keyword = self.loose_integer_input()
+        if keyword not in keywords or keyword not in range(1, len(keyword) + 1):
+            raise ValueError(f'Invalid Keyword >> "{keyword}"')
+        if isinstance(keyword, int):
+            return keywords[keyword - 1]
+        return keyword
+
     def numeric_input(self) -> int | float:
         user_input = self._string_input("assert", "strip")
         return get_numeric_value(input_string=user_input)
@@ -109,6 +119,13 @@ class InputHandler:
         user_input = self._string_input("assert", "strip")
         try:
             return get_numeric_value(input_string=user_input)
+        except ValueError:
+            return user_input
+
+    def loose_integer_input(self) -> int | str:
+        user_input = self._string_input("assert", "strip")
+        try:
+            return get_integer_value(input_string=user_input)
         except ValueError:
             return user_input
 
