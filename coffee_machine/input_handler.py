@@ -25,7 +25,8 @@ class InputHandler:
     def get_input_method(self) -> None:
         input_types = {
             "strict-string": self.strict_string_input,
-            "loose-string": self.unrestricted_string_input,
+            "loose-string": self.loose_string_input,
+            "unrestricted-string": self.unrestricted_string_input,
             "lower-string": self.lower_string_input,
             "upper-string": self.upper_string_input,
             "numeric": self.numeric_input,
@@ -63,6 +64,9 @@ class InputHandler:
 
     def strict_string_input(self) -> str:
         return self._string_input("assert", "strip")
+
+    def loose_string_input(self) -> str:
+        return self._string_input("lower")
 
     def unrestricted_string_input(self) -> str:
         return self._string_input()
