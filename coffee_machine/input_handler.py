@@ -29,6 +29,7 @@ class InputHandler:
             "unrestricted-string": self.unrestricted_string_input,
             "lower-string": self.lower_string_input,
             "upper-string": self.upper_string_input,
+            "multiple-strings": self.multiple_string_values_input,
             "numeric": self.numeric_input,
             "integer": self.integer_input,
             "loose-numeric": self.loose_numeric_input,
@@ -78,6 +79,23 @@ class InputHandler:
 
     def upper_string_input(self) -> str:
         return self._string_input("assert", "strip", "upper")
+
+    def multiple_string_values_input(self, exit_keywords: list | None = None, duplicates: bool = True) -> list:
+        if not exit_keywords:
+            exit_keywords = ["done", "exit", "eol"]
+        strings = []
+        while True:
+            user_input = self.lower_string_input()
+            if user_input in exit_keywords:
+                break
+            if "," in user_input:
+                input_values = split_by_comma(user_input)
+                strings.extend(input_values)
+            else:
+                strings.append(input_values)
+        if not duplicates:
+            strings = list(set(strings))
+        return strings
 
     def numeric_input(self) -> int | float:
         user_input = self._string_input("assert", "strip")
