@@ -31,6 +31,8 @@ class InputHandler:
             "upper-string": self.upper_string_input,
             "numeric": self.numeric_input,
             "integer": self.integer_input,
+            "loose-numeric": self.loose_numeric_input,
+            "multiple-numeric": self.multiple_numeric_values_input,
             "menu-code": self.menu_code_input,
             "ingredients": self.ingredients_input,
             "currency-code": self.currency_code_input,
@@ -84,6 +86,30 @@ class InputHandler:
     def integer_input(self) -> int:
         user_input = self._string_input("assert", "strip")
         return get_integer_value(user_input)
+
+    def loose_numeric_input(self) -> int | float | str:
+        user_input = self._string_input("assert", "strip")
+        try:
+            return get_numeric_value(input_string=user_input)
+        except ValueError:
+            return user_input
+
+    def multiple_numeric_values_input(self, exit_keywords: list | None = None, duplicates: bool = True) -> list:
+        if not exit_keywords:
+            exit_keywords = ["done", "exit", "eol"]
+        numeric_values = []
+        while True:
+            user_input = self.loose_numeric_input()
+            if user_input in exit_keywords:
+                break
+            if "," in user_input:
+                input_values = split_by_comma(user_input)
+                numeric_values.extend(input_values)
+            else:
+                numeric_values.append(user_input)
+        if not duplicates:
+            numeric_values = list(set(numeric_values))
+        return numeric_values
 
     def menu_code_input(self) -> int | float:
         menu_code = self.numeric_input()
