@@ -31,6 +31,7 @@ class InputHandler:
             "upper-string": self.upper_string_input,
             "multiple-strings": self.multiple_string_values_input,
             "keyword": self.keyword_input,
+            "choice": self.choice_input,
             "numeric": self.numeric_input,
             "integer": self.integer_input,
             "loose-numeric": self.loose_numeric_input,
@@ -106,6 +107,17 @@ class InputHandler:
         if isinstance(keyword, int):
             return keywords[keyword - 1]
         return keyword
+
+    def choice_input(self, choices: list) -> str:
+        user_option = self.loose_integer_input()
+        integer_options = list(range(1, len(choices) + 1))
+        lowercase_options = list(string.ascii_lowercase[:len(choices)])
+        uppercase_options = list(string.ascii_uppercase[:len(choices)])
+        valid_options = [choices, integer_options, lowercase_options, uppercase_options]
+        for index, option_group in enumerate(valid_options):
+            if user_option in option_group:
+                return choices[index]
+        raise ValueError(f'Invalid Choice >> "{user_option}"')
 
     def numeric_input(self) -> int | float:
         user_input = self._string_input("assert", "strip")
